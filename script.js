@@ -81,11 +81,21 @@ class CareerCraftApp {
             screenshotUpload.addEventListener('drop', (e) => this.handleScreenshotDrop(e));
         }
 
+        // Job details choice buttons
+        const chooseScreenshotBtn = document.getElementById("chooseScreenshot");
+        const chooseManualBtn = document.getElementById("chooseManual");
+
+        if (chooseScreenshotBtn) {
+            chooseScreenshotBtn.addEventListener("click", () => this.showScreenshotUploadSection());
+        }
+
+        if (chooseManualBtn) {
+            chooseManualBtn.addEventListener("click", () => this.showJobForm());
+        }
+
         // Form actions
-        const confirmContinueBtn = document.getElementById('confirmContinue');
-        const backToChoiceBtn = document.getElementById('backToChoice');
-        
-        if (confirmContinueBtn) {
+        const confirmContinueBtn = document.getElementById("confirmContinue");
+        const backToChoiceBtn = document.getElementById("backToChoice");
             confirmContinueBtn.addEventListener('click', () => this.proceedToGenerate());
         }
         
@@ -505,4 +515,17 @@ document.addEventListener('DOMContentLoaded', () => {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CareerCraftApp;
 }
+
+
+
+    showScreenshotUploadSection() {
+        const jobChoiceSection = document.getElementById("jobChoiceSection");
+        const screenshotUploadSection = document.getElementById("screenshotUploadSection");
+        
+        if (jobChoiceSection && screenshotUploadSection) {
+            jobChoiceSection.style.display = "none";
+            screenshotUploadSection.style.display = "block";
+        }
+    }
+
 
