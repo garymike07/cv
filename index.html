@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerCraft AI - CV/Cover Letter Maker</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="logo-text">CareerCraft AI</span>
+            </div>
+            <div class="header-right">
+                <div class="time-display" id="timeDisplay">7:08:00 AM</div>
+                <button class="admin-btn">
+                    <i class="fas fa-user-cog"></i>
+                    Admin
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Welcome Section -->
+        <section class="welcome-section" id="welcomeSection">
+            <div class="welcome-content">
+                <h1 class="welcome-title">Good Morning!</h1>
+                <p class="welcome-subtitle">Let's create the perfect application for your next big opportunity.</p>
+                
+                <div class="name-input-section" id="nameInputSection">
+                    <div class="name-prompt">
+                        <label for="userName">What should we call you?</label>
+                        <div class="input-group">
+                            <input type="text" id="userName" placeholder="Enter your name..." required>
+                            <button id="confirmNameBtn" class="confirm-btn">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Application -->
+        <div class="app-container" id="appContainer" style="display: none;">
+            <div class="app-header">
+                <h1 class="greeting" id="personalGreeting">Good Morning, User!</h1>
+                <p class="app-description">CareerCraft AI helps you generate an enhanced CV and Application Letter that matches your job description.</p>
+            </div>
+
+            <div class="main-layout">
+                <!-- Left Panel - Steps -->
+                <div class="steps-panel">
+                    <!-- Step 1: Upload CV -->
+                    <div class="step-card" id="step1">
+                        <div class="step-header">
+                            <h3>Step 1: Upload Your CV</h3>
+                            <button class="edit-btn" id="editStep1">Edit</button>
+                        </div>
+                        
+                        <div class="upload-area" id="cvUploadArea">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-content">
+                                <h4>Start with Your CV</h4>
+                                <p>Drag and drop your file here, or click to browse. We support PDF, DOC, and DOCX formats.</p>
+                                <button class="choose-file-btn" id="chooseCvBtn">
+                                    <i class="fas fa-upload"></i>
+                                    Choose File
+                                </button>
+                                <div class="supported-formats">
+                                    <span>Supported:</span>
+                                    <span class="format">PDF</span>
+                                    <span class="format">DOC</span>
+                                    <span class="format">DOCX</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="uploaded-file" id="uploadedCv" style="display: none;">
+                            <div class="file-info">
+                                <i class="fas fa-file-pdf"></i>
+                                <span class="file-name" id="cvFileName"></span>
+                            </div>
+                            <button class="upload-different-btn" id="uploadDifferentCv">Upload a Different CV</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Job Details -->
+                    <div class="step-card" id="step2" style="display: none;">
+                        <div class="step-header">
+                            <h3>Step 2: Provide Job Details</h3>
+                        </div>
+                        
+                        <div class="job-choice-section" id="jobChoiceSection">
+                            <h4>Provide Job Details</h4>
+                            <p>How would you like to add the job requirements? You can upload a screenshot for automated entry or fill out the form yourself.</p>
+                            
+                            <div class="choice-options">
+                                <div class="choice-option" id="screenshotChoice">
+                                    <div class="choice-icon">
+                                        <i class="fas fa-camera"></i>
+                                    </div>
+                                    <h5>Upload Screenshot</h5>
+                                    <p>Our system will analyze the image and automatically fill in the job details for you.</p>
+                                    <button class="choice-btn" id="chooseScreenshot">Upload Screenshot</button>
+                                </div>
+                                
+                                <div class="choice-option" id="manualChoice">
+                                    <div class="choice-icon">
+                                        <i class="fas fa-edit"></i>
+                                    </div>
+                                    <h5>Fill Form Manually</h5>
+                                    <p>Enter the job requirements yourself using our comprehensive and easy-to-use form.</p>
+                                    <button class="choice-btn" id="chooseManual">Fill Form Manually</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="screenshot-upload-section" id="screenshotUploadSection" style="display: none;">
+                            <h4>Upload Job Description</h4>
+                            <p>Upload images of the job posting. Our tool will do the rest.</p>
+                            
+                            <div class="screenshot-upload" id="screenshotUpload">
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                <p>Drop Job Posting Images Here</p>
+                                <p class="upload-subtext">Our smart tool will analyze and extract job requirements.</p>
+                                <button class="add-screenshots-btn" id="addScreenshotsBtn">Browse Images</button>
+                            </div>
+
+                            <div class="processing-status" id="processingStatus" style="display: none;">
+                                <div class="processing-text">
+                                    <span>Processing...</span>
+                                    <span>Analyzing job requirements...</span>
+                                    <span>Extracting job data to pre-fill the form for you.</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="analysisProgress"></div>
+                                </div>
+                                <span class="progress-text">Analysis Progress <span id="progressPercent">0%</span></span>
+                            </div>
+                        </div>
+
+                        <div class="job-form" id="jobForm" style="display: none;">
+                            <h4>Job Details</h4>
+                            <p>Enter job details or upload a screenshot</p>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="jobTitle">Job Title</label>
+                                    <input type="text" id="jobTitle" placeholder="e.g., Senior Software Engineer">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="company">Company</label>
+                                    <input type="text" id="company" placeholder="e.g., Tech Corporation">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="companyAddress">Company Address</label>
+                                    <input type="text" id="companyAddress" placeholder="e.g., 123 Tech Street, San Francisco, CA 94105">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="experienceLevel">Experience Level</label>
+                                    <select id="experienceLevel">
+                                        <option value="">Select experience level</option>
+                                        <option value="entry">Entry Level</option>
+                                        <option value="mid">Mid Level</option>
+                                        <option value="senior">Senior Level</option>
+                                        <option value="executive">Executive</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="jobType">Job Type</label>
+                                    <select id="jobType">
+                                        <option value="">Select job type</option>
+                                        <option value="full-time">Full Time</option>
+                                        <option value="part-time">Part Time</option>
+                                        <option value="contract">Contract</option>
+                                        <option value="freelance">Freelance</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="location">Location</label>
+                                    <input type="text" id="location" placeholder="Enter location">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="salaryRange">Salary Range</label>
+                                    <input type="text" id="salaryRange" placeholder="Enter salary range">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="workArrangement">Work Arrangement</label>
+                                    <select id="workArrangement">
+                                        <option value="">Select work arrangement</option>
+                                        <option value="remote">Remote</option>
+                                        <option value="hybrid">Hybrid</option>
+                                        <option value="onsite">On-site</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="requiredSkills">Required Skills</label>
+                                    <textarea id="requiredSkills" placeholder="Enter required skills"></textarea>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="keyResponsibilities">Key Responsibilities</label>
+                                    <textarea id="keyResponsibilities" placeholder="Enter key responsibilities"></textarea>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="qualifications">Qualifications</label>
+                                    <textarea id="qualifications" placeholder="Enter qualifications"></textarea>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="additionalBenefits">Additional Benefits</label>
+                                    <textarea id="additionalBenefits" placeholder="Enter additional benefits"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button class="back-btn" id="backToChoice">Back to Choice</button>
+                                <button class="continue-btn" id="confirmContinue">Confirm and Continue</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Generate -->
+                    <div class="step-card" id="step3" style="display: none;">
+                        <div class="step-header">
+                            <h3>Step 3: Generate</h3>
+                        </div>
+                        <div class="generate-content">
+                            <div class="generate-status">
+                                <i class="fas fa-cog fa-spin"></i>
+                                <p>Creating tailored documents...</p>
+                                <div class="generate-progress">
+                                    <div class="generate-progress-bar">
+                                        <div class="generate-progress-fill" id="generateProgressFill"></div>
+                                    </div>
+                                    <span id="generateProgressText">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Preview & Download -->
+                    <div class="step-card" id="step4" style="display: none;">
+                        <div class="step-header">
+                            <h3>Step 4: Preview & Download</h3>
+                        </div>
+                        <div class="preview-content">
+                            <div class="document-preview">
+                                <h4>Your Enhanced Documents</h4>
+                                <div class="document-list">
+                                    <div class="document-item">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>Enhanced CV</span>
+                                        <button class="download-btn" data-type="cv">Download</button>
+                                    </div>
+                                    <div class="document-item">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span>Cover Letter</span>
+                                        <button class="download-btn" data-type="cover-letter">Download</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Progress -->
+                <div class="progress-panel">
+                    <div class="progress-card">
+                        <h3>Your Progress</h3>
+                        <div class="overall-progress">
+                            <span>Overall Progress</span>
+                            <span class="progress-percentage" id="overallProgress">0%</span>
+                        </div>
+                        <div class="progress-bar-main">
+                            <div class="progress-fill-main" id="mainProgressFill"></div>
+                        </div>
+                        
+                        <div class="progress-steps">
+                            <div class="progress-step" id="progressStep1">
+                                <div class="step-icon">
+                                    <i class="fas fa-upload"></i>
+                                </div>
+                                <div class="step-info">
+                                    <h4>Upload CV</h4>
+                                    <p>Provide your current CV.</p>
+                                    <span class="completion-time" id="step1Time" style="display: none;"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-step" id="progressStep2">
+                                <div class="step-icon">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                                <div class="step-info">
+                                    <h4>Add Job Details</h4>
+                                    <p>Upload job description.</p>
+                                    <span class="completion-time" id="step2Time" style="display: none;"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-step" id="progressStep3">
+                                <div class="step-icon">
+                                    <i class="fas fa-magic"></i>
+                                </div>
+                                <div class="step-info">
+                                    <h4>Generate</h4>
+                                    <p>Create tailored documents.</p>
+                                    <span class="completion-time" id="step3Time" style="display: none;"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-step" id="progressStep4">
+                                <div class="step-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="step-info">
+                                    <h4>Preview & Download</h4>
+                                    <p>Review your new documents.</p>
+                                    <span class="completion-time" id="step4Time" style="display: none;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Hidden file inputs -->
+    <input type="file" id="cvFileInput" accept=".pdf,.doc,.docx" style="display: none;">
+    <input type="file" id="screenshotFileInput" accept="image/*" multiple style="display: none;">
+
+    <script src="script.js"></script>
+</body>
+</html>
+
