@@ -222,12 +222,25 @@ class CareerCraftApp {
     }
 
     processScreenshotFiles(files) {
-        this.showNotification('Processing job description screenshots...', 'info');
+        this.showNotification("Processing job description screenshots...", "info");
         
+        // Display uploaded image names
+        const uploadedImagesContainer = document.getElementById("uploadedImagesContainer");
+        if (uploadedImagesContainer) {
+            uploadedImagesContainer.innerHTML = ""; // Clear previous
+            for (let i = 0; i < files.length; i++) {
+                const fileName = files[i].name;
+                const imgElement = document.createElement("div");
+                imgElement.textContent = fileName;
+                uploadedImagesContainer.appendChild(imgElement);
+            }
+            uploadedImagesContainer.style.display = "block";
+        }
+
         // Show processing status
-        const processingStatus = document.getElementById('processingStatus');
+        const processingStatus = document.getElementById("processingStatus");
         if (processingStatus) {
-            processingStatus.style.display = 'block';
+            processingStatus.style.display = "block";
         }
 
         // Simulate analysis progress
@@ -236,8 +249,8 @@ class CareerCraftApp {
             progress += Math.random() * 20;
             if (progress > 100) progress = 100;
             
-            const progressFill = document.getElementById('analysisProgress');
-            const progressPercent = document.getElementById('progressPercent');
+            const progressFill = document.getElementById("analysisProgress");
+            const progressPercent = document.getElementById("progressPercent");
             
             if (progressFill) progressFill.style.width = `${progress}%`;
             if (progressPercent) progressPercent.textContent = `${Math.round(progress)}%`;
