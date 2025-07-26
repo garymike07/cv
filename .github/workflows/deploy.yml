@@ -1,0 +1,38 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install dependencies (if any)
+      run: |
+        # If your project has a package.json and needs dependencies, uncomment and adjust:
+        # npm install
+
+    - name: Build (if needed)
+      run: |
+        # If your project needs a build step (e.g., React, Vue), uncomment and adjust:
+        # npm run build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./ # Adjust this if your build output is in a subdirectory like 'build' or 'dist'
+        cname: your-custom-domain.com # Uncomment and replace if you have a custom domain
+
+
