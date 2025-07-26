@@ -76,9 +76,10 @@ class CareerCraftApp {
         }
 
         if (screenshotUpload) {
-            screenshotUpload.addEventListener('dragover', (e) => this.handleDragOver(e));
-            screenshotUpload.addEventListener('dragleave', (e) => this.handleDragLeave(e));
-            screenshotUpload.addEventListener('drop', (e) => this.handleScreenshotDrop(e));
+            screenshotUpload.addEventListener("click", () => screenshotFileInput.click());
+            screenshotUpload.addEventListener("dragover", (e) => this.handleDragOver(e));
+            screenshotUpload.addEventListener("dragleave", (e) => this.handleDragLeave(e));
+            screenshotUpload.addEventListener("drop", (e) => this.handleScreenshotDrop(e));
         }
 
         // Job details choice buttons
@@ -224,17 +225,23 @@ class CareerCraftApp {
     processScreenshotFiles(files) {
         this.showNotification("Processing job description screenshots...", "info");
         
-        // Display uploaded image names
         const uploadedImagesContainer = document.getElementById("uploadedImagesContainer");
         if (uploadedImagesContainer) {
             uploadedImagesContainer.innerHTML = ""; // Clear previous
-            for (let i = 0; i < files.length; i++) {
-                const fileName = files[i].name;
-                const imgElement = document.createElement("div");
-                imgElement.textContent = fileName;
-                uploadedImagesContainer.appendChild(imgElement);
-            }
-            uploadedImagesContainer.style.display = "block";
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imgContainer = document.createElement("div");
+                    imgContainer.className = "uploaded-image-item";
+                    imgContainer.innerHTML = `
+                        <img src="${e.target.result}" alt="Job Posting ${index + 1}">
+                        <span>Job posting ${index + 1}</span>
+                    `;
+                    uploadedImagesContainer.appendChild(imgContainer);
+                };
+                reader.readAsDataURL(file);
+            });
+            uploadedImagesContainer.style.display = "flex"; // Use flexbox for systematic display
         }
 
         // Show processing status
@@ -531,14 +538,19 @@ if (typeof module !== 'undefined' && module.exports) {
 
 
 
-    showScreenshotUploadSection() {
-        const jobChoiceSection = document.getElementById("jobChoiceSection");
+     showScreenshotUploadSection() {
+        const jobDetailsChoice = document.getElementById("jobDetailsChoice");
         const screenshotUploadSection = document.getElementById("screenshotUploadSection");
-        
-        if (jobChoiceSection && screenshotUploadSection) {
-            jobChoiceSection.style.display = "none";
+        if (jobDetailsChoice && screenshotUploadSection) {
+            jobDetailsChoice.style.display = "none";
             screenshotUploadSection.style.display = "block";
         }
+        // Automatically trigger the file input when the section is shown
+        const screenshotFileInput = document.getElementById("screenshotFileInput");
+        if (screenshotFileInput) {
+            screenshotFileInput.click();
+        }
+    } }
     }
 
 
